@@ -13,8 +13,23 @@ def create_book(db: Session, data: BookCreate):
 
 
 def get_book(db: Session, book_id: int):
-    return db.query(BookModel).filter_by(id=book_id).first()
+    return db.query(BookModel).get(book_id)
 
 
 def get_book_by_isbn(db: Session, isbn: str):
     return db.query(BookModel).filter_by(isbn=isbn).first()
+
+
+def list_books(db: Session, keyword: str, page: int, per_page: int):
+    skip = (page - 1) * per_page
+    limit = per_page
+    if keyword:
+        return db.query(BookModel).offset(skip).limit(limit).all()
+    else:
+        return (
+            db.query(BookModel)
+            .filter(BookModel.title.ilike(f"%{keyword}%"))
+            .offset(skip)
+            .limit(limit)
+            .all()
+        )
