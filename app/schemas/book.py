@@ -1,17 +1,19 @@
+from datetime import date
 from pydantic import BaseModel
 
-class ItemBase(BaseModel):
+
+class BookBase(BaseModel):
     title: str
     author: str
     isbn: str
-    publish_date: str # ISO 8601 format `2022-11-15`
+    publish_date: date  # ISO 8601 format `2022-11-15`
     price: float
 
 
-class ItemCreate(ItemBase):
+class BookCreate(BookBase):
     pass
 
 
-class Item(ItemBase):
+class Book(BookBase):
     class Config:
         orm_mode = True

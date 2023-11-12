@@ -1,3 +1,5 @@
+import re
+
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import validates
 from passlib.context import CryptContext
