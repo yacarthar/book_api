@@ -23,7 +23,7 @@ def get_book_by_isbn(db: Session, isbn: str):
 def list_books(db: Session, keyword: str, page: int, per_page: int):
     skip = (page - 1) * per_page
     limit = per_page
-    if keyword:
+    if not keyword:
         return db.query(BookModel).offset(skip).limit(limit).all()
     else:
         return (

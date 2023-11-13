@@ -15,5 +15,6 @@ class BookCreate(BookBase):
 
 
 class Book(BookBase):
+    id: int
     class Config:
         orm_mode = True
