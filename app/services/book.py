@@ -33,3 +33,11 @@ def list_books(db: Session, keyword: str, page: int, per_page: int):
             .limit(limit)
             .all()
         )
+
+
+def delete_book(db: Session, book_id: int):
+    book = db.query(BookModel).get(book_id)
+    if book:
+        db.delete(book)
+        db.commit()
+    return book

@@ -4,7 +4,9 @@ from fastapi import APIRouter, HTTPException, Depends, Query
 from sqlalchemy.orm import Session
 
 from ..libs.db import get_db
-from ..services.book import create_book, get_book, get_book_by_isbn, list_books
+from ..services.book import (create_book, get_book, get_book_by_isbn,
+                            list_books, delete_book
+                            )
 from ..schemas.book import Book, BookCreate
 
 router = APIRouter(
@@ -39,3 +41,11 @@ def list_books_(
 ):
     books = list_books(db, keyword=query, page=page, per_page=per_page)
     return books
+
+
+@router.delete("/{book_id}")
+def delete_book_(book_id: int, db: Session = Depends(get_db)):
+    deleted_book = delete_book(db, book_id=book_id)
+    if deleted_book is None:
+        raise HTTPException(status_code=404, detail="Book not found")
+    return deleted_book
