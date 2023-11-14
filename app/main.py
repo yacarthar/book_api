@@ -5,11 +5,9 @@ from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
 
 from config import Settings
-from .libs.db import engine, Base
 from .routers.users import router as user_router
 from .routers.books import router as book_router
 
-Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
