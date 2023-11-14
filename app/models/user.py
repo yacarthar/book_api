@@ -2,11 +2,10 @@ import re
 
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import validates
-from passlib.context import CryptContext
 
 from ..libs.db import Base
+from ..libs.security import pwd_context
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 class UserModel(Base):
     __tablename__ = "users"
@@ -21,7 +20,7 @@ class UserModel(Base):
         self.email = email
         self.set_password(password)
 
-    @validates('email')
+    @validates("email")
     def validate_email(self, key, email):
         if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
             raise ValueError("Invalid email address")
