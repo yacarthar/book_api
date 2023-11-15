@@ -27,7 +27,7 @@ def get_db_config(field_name):
 
 
 class Base(BaseSettings):
-    SECRET_KEY: str = "tempkey"
+    SECRET_KEY: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
     DB_SCHEME: str = "postgresql"
 

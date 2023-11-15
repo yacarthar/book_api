@@ -23,7 +23,6 @@ async def config(settings=settings):
 @app.get("/config/cloud")
 def config_cloud():
     return {
-        "SECRET_KEY": os.environ.get("SECRET_KEY"),
         "PLATFORM_APP_DIR": os.environ.get("PLATFORM_APP_DIR"),
         "PLATFORM_APPLICATION": os.environ.get("PLATFORM_APPLICATION"),
         "PLATFORM_APPLICATION_NAME": os.environ.get("PLATFORM_APPLICATION_NAME"),
