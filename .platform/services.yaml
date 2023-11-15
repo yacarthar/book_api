@@ -1,0 +1,4 @@
+
+db:
+  type: 'postgresql:14'
+  disk: 400

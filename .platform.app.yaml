@@ -1,0 +1,27 @@
+name: "book_api_1"
+type: "python:3.11"
+
+disk: 400
+
+relationships:
+  postgres: "db:postgresql"
+
+web:
+  commands:
+    start: "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+
+hooks:
+  build: |
+    set -eu
+
+    # Download the latest version of pip
+    # python3.11 -m pip install --upgrade pip
+
+    # Install dependencies
+    pip install -r requirements.txt
+
+  deploy: |
+    alembic upgrade head
+
+variables:
+    SECRET_KEY: "${.prod.env:SECRET_KEY}"
