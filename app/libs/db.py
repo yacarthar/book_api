@@ -1,11 +1,13 @@
-from config import settings
-
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
+from config import settings
+from app.libs.log import logger
 
-engine = create_engine(settings.sqlalchemy_database_uri)
+logger.info(f"db_uri: {settings.db_uri}")
+
+engine = create_engine(settings.db_uri)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()

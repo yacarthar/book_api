@@ -1,3 +1,5 @@
+from urllib.parse import urljoin
+
 from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 from jose import jwt
@@ -10,10 +12,10 @@ from app.schemas.token import TokenPayload
 from .db import get_db
 from .security import ALGORITHM
 from app.services.user import get_user
-
+from app.libs.log import logger
 
 token_getter = OAuth2PasswordBearer(
-    tokenUrl=f"{settings.APP_BASE_URL}/users/login"  # tbd base_url
+    tokenUrl=urljoin(settings.APP_BASE_URL, "/users/login")
 )
 
 
@@ -24,7 +26,7 @@ def get_current_user(
         payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[ALGORITHM])
         token_data = TokenPayload(**payload)
     except (jwt.JWTError, ValidationError) as e:
-        print(e)
+        logger.error(e)
         raise HTTPException(
             status_code=403,
             detail="Invalid credential!",
