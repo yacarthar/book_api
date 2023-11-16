@@ -1,13 +1,15 @@
 import math
 import re
 from datetime import date
+from typing import Union
+
 from sqlalchemy.orm import Session
 
 from ..models.book import BookModel
 from ..schemas.book import Book, BookCreate
 
 
-def create_book(db: Session, data: BookCreate):
+def create_book(db: Session, data: BookCreate) -> BookModel:
     new_book = BookModel(**data.dict())
     db.add(new_book)
     db.commit()
@@ -15,11 +17,11 @@ def create_book(db: Session, data: BookCreate):
     return new_book
 
 
-def get_book(db: Session, book_id: int):
+def get_book(db: Session, book_id: int) -> Union[BookModel, None]:
     return db.query(BookModel).get(book_id)
 
 
-def get_book_by_isbn(db: Session, isbn: str):
+def get_book_by_isbn(db: Session, isbn: str) -> Union[BookModel, None]:
     return db.query(BookModel).filter_by(isbn=isbn).first()
 
 
@@ -30,7 +32,7 @@ def list_books(db: Session, page: int, limit: int, **kwargs):
             query = query.filter(getattr(BookModel, key).ilike(f"%{value}%"))
 
         if key == "date" and value is not None:
-            pattern = r"\d{4}-\d{2}-\d{2}" # yyyy-mm-dd
+            pattern = r"\d{4}-\d{2}-\d{2}"  # yyyy-mm-dd
             dates: list[str] = re.findall(pattern, value)
             exact_date = date.fromisoformat(dates[0])
             date_search_type = value.strip(dates[0])  # before/after/empty
@@ -55,7 +57,7 @@ def list_books(db: Session, page: int, limit: int, **kwargs):
     return total, result, next_page, prev_page
 
 
-def delete_book(db: Session, book_id: int):
+def delete_book(db: Session, book_id: int) -> Union[BookModel, None]:
     book = db.query(BookModel).get(book_id)
     if book:
         db.delete(book)

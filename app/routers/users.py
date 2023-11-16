@@ -7,11 +7,11 @@ from ..schemas.user import User, UserCreate, UserLogin
 from ..libs.security import create_access_token
 
 
-router = APIRouter(prefix="/users")
+router = APIRouter(prefix="/users", tags=["Users"])
 
 
 @router.post("/", response_model=User)
-def create_user_(data: UserCreate, db: Session = Depends(get_db)):
+def register(data: UserCreate, db: Session = Depends(get_db)):
     user = get_user_by_email(db, email=data.email)
     if user:
         raise HTTPException(status_code=400, detail="Email already registered")
