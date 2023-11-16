@@ -1,4 +1,5 @@
 from datetime import date
+from typing import Union, List
 from pydantic import BaseModel
 
 
@@ -18,3 +19,9 @@ class Book(BookBase):
     id: int
     class Config:
         from_attributes = True
+
+class BookSearch(BaseModel):
+    total: int
+    result: List[Book]
+    next_page: Union[str, None] = None
+    prev_page: Union[str, None] = None
