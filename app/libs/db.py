@@ -5,7 +5,7 @@ from sqlalchemy.orm import sessionmaker
 from config import settings
 from app.libs.log import logger
 
-logger.info(f"db_uri: {settings.db_uri}")
+logger.info(f"db_host: {settings.DB_HOST}")
 
 engine = create_engine(settings.db_uri)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
