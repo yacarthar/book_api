@@ -27,6 +27,7 @@ def get_db_config(field_name):
 
 
 class Base(BaseSettings):
+    API_VERSION: str = "v1"
     SECRET_KEY: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
     DB_SCHEME: str = "postgresql"

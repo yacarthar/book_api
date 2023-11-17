@@ -1,5 +1,3 @@
-from urllib.parse import urljoin
-
 from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 from jose import jwt
@@ -15,7 +13,7 @@ from app.services.user import get_user
 from app.libs.log import logger
 
 token_getter = OAuth2PasswordBearer(
-    tokenUrl=urljoin(settings.APP_BASE_URL, "/users/login")
+    tokenUrl=f"/api/{settings.API_VERSION}/users/login"
 )
 
 
