@@ -6,10 +6,10 @@ from pydantic import BaseModel, StringConstraints, PastDate, PositiveFloat
 
 class BookCreate(BaseModel):
     title: Annotated[
-        str, StringConstraints(strip_whitespace=True, pattern=r"^[^\W_]+$")
+        str, StringConstraints(strip_whitespace=True, pattern=r"^[a-zA-Z0-9. ']+$")
     ]
     author: Annotated[
-        str, StringConstraints(strip_whitespace=True, pattern=r"^[a-zA-Z. ]+$"), None
+        str, StringConstraints(strip_whitespace=True, pattern=r"^[a-zA-Z. ']+$"), None
     ]
     isbn: Annotated[
         str, StringConstraints(strip_whitespace=True, pattern=r"^[0-9\-]{10,20}$"), None
@@ -40,10 +40,10 @@ class BookSearch(BaseModel):
 
 class BookUpdate(BaseModel):
     title: Annotated[
-        str, StringConstraints(strip_whitespace=True, pattern=r"^[^\W_]+$")
+        str, StringConstraints(strip_whitespace=True, pattern=r"^[a-zA-Z0-9. ']+$")
     ] = None
     author: Annotated[
-        str, StringConstraints(strip_whitespace=True, pattern=r"^[a-zA-Z. ]+$"), None
+        str, StringConstraints(strip_whitespace=True, pattern=r"^[a-zA-Z. ']+$"), None
     ] = None
     isbn: Annotated[
         str, StringConstraints(strip_whitespace=True, pattern=r"^[0-9\-]{10,20}$"), None
