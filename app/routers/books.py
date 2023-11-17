@@ -6,14 +6,16 @@ from sqlalchemy.orm import Session
 from ..libs.db import get_db
 from ..libs.auth import get_current_user
 from ..libs.utils import build_url
+from ..libs.log import logger
 from ..services.book import (
     create_book,
     get_book,
     get_book_by_isbn,
     list_books,
     delete_book,
+    update_book,
 )
-from ..schemas.book import Book, BookCreate, BookSearch
+from ..schemas.book import Book, BookCreate, BookSearch, BookUpdate
 from ..models.user import UserModel
 
 router = APIRouter(
@@ -82,3 +84,22 @@ def delete_book_(
     if deleted_book is None:
         raise HTTPException(status_code=404, detail="Book not found")
     return deleted_book
+
+
+@router.put("/{book_id}", response_model=Book, dependencies=[Depends(get_current_user)])
+def update_book_(
+    book_id: int,
+    data: BookUpdate,
+    db: Session = Depends(get_db),
+):
+    book = get_book(db, book_id=book_id)
+    if not book:
+        raise HTTPException(status_code=404, detail="Book not found")
+
+    parsed_data = data.dict(exclude_none=True)
+    try:
+        res = update_book(db, book, parsed_data)
+    except Exception as e:
+        logger.error(e)
+        raise HTTPException(status_code=400, detail="Invalid Book Input!")
+    return res
