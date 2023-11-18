@@ -1,6 +1,6 @@
 from typing import Union
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 class UserBase(BaseModel):
     email: str
@@ -14,8 +14,8 @@ class UserCreate(UserBase):
 class User(UserBase):
     id: int
     username: str
-    class Config:
-        from_attributes = True
+
+    model_config = ConfigDict(from_attributes=True)
 
 
 class UserLogin(UserBase):

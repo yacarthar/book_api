@@ -96,7 +96,7 @@ def update_book_(
     if not book:
         raise HTTPException(status_code=404, detail="Book not found")
 
-    parsed_data = data.dict(exclude_none=True)
+    parsed_data = data.model_dump(exclude_none=True)
     try:
         res = update_book(db, book, parsed_data)
     except Exception as e:

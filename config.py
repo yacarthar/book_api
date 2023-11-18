@@ -3,7 +3,7 @@ import json
 import os
 from typing import Union
 
-from pydantic import validator, Field
+from pydantic import validator, Field, ConfigDict
 from pydantic_settings import BaseSettings
 
 
@@ -32,9 +32,7 @@ class Base(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
     DB_SCHEME: str = "postgresql"
 
-    class Config:
-        env_file_encoding = "utf-8"
-        extra = "ignore"
+    model_config = ConfigDict(env_file_encoding="utf-8", extra="ignore")
 
     @property
     def db_uri(self):
@@ -42,6 +40,7 @@ class Base(BaseSettings):
             f"{self.DB_SCHEME}://{self.DB_USERNAME}:{self.DB_PASSWORD}"
             + f"@{self.DB_HOST}:{str(self.DB_PORT)}/{self.DB_PATH}"
         )
+
 
 class Local(Base):
     APP_BASE_URL: str
@@ -51,8 +50,7 @@ class Local(Base):
     DB_PORT: str
     DB_PATH: str
 
-    class Config:
-        env_file = ".local.env"
+    model_config = ConfigDict(env_file=".local.env")
 
 
 class Prod(Base):
@@ -64,8 +62,7 @@ class Prod(Base):
     DB_PORT: int = Field(default_factory=lambda: get_db_config("port"))
     DB_PATH: str = Field(default_factory=lambda: get_db_config("path"))
 
-    class Config:
-        env_file = ".prod.env"
+    model_config = ConfigDict(env_file=".prod.env")
 
 
 config = dict(

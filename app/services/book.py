@@ -10,7 +10,7 @@ from ..schemas.book import Book, BookCreate
 
 
 def create_book(db: Session, data: BookCreate) -> BookModel:
-    new_book = BookModel(**data.dict())
+    new_book = BookModel(**data.model_dump())
     db.add(new_book)
     db.commit()
     db.refresh(new_book)

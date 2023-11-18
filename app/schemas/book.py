@@ -1,7 +1,7 @@
 from datetime import date, datetime
 from typing import Union, List, Annotated
 
-from pydantic import BaseModel, StringConstraints, PastDate, PositiveFloat
+from pydantic import BaseModel, StringConstraints, PastDate, PositiveFloat, ConfigDict
 
 
 class BookCreate(BaseModel):
@@ -9,10 +9,10 @@ class BookCreate(BaseModel):
         str, StringConstraints(strip_whitespace=True, pattern=r"^[a-zA-Z0-9. ']+$")
     ]
     author: Annotated[
-        str, StringConstraints(strip_whitespace=True, pattern=r"^[a-zA-Z. ']+$"), None
+        str, StringConstraints(strip_whitespace=True, pattern=r"^[a-zA-Z. ']+$")
     ]
     isbn: Annotated[
-        str, StringConstraints(strip_whitespace=True, pattern=r"^[0-9\-]{10,20}$"), None
+        str, StringConstraints(strip_whitespace=True, pattern=r"^[0-9\-]{10,20}$")
     ]
     publish_date: Union[PastDate, None] = None
     price: Union[PositiveFloat, None] = None
@@ -27,8 +27,7 @@ class Book(BaseModel):
     price: float
     created_at: datetime
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class BookSearch(BaseModel):
