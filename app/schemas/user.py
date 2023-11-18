@@ -1,4 +1,4 @@
-from typing import Union, Annotated
+from typing import Annotated
 
 from pydantic import BaseModel, ConfigDict, StringConstraints, EmailStr
 

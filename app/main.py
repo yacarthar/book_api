@@ -1,8 +1,5 @@
-import os
-from typing import Annotated
 
-from fastapi import FastAPI, Depends
-from sqlalchemy.orm import Session
+from fastapi import FastAPI
 
 from config import settings
 from .routers.users import router as user_router

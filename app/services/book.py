@@ -6,7 +6,7 @@ from typing import Union
 from sqlalchemy.orm import Session
 
 from ..models.book import BookModel
-from ..schemas.book import Book, BookCreate
+from ..schemas.book import BookCreate
 
 
 def create_book(db: Session, data: BookCreate) -> BookModel:

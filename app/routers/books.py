@@ -16,7 +16,6 @@ from ..services.book import (
     update_book,
 )
 from ..schemas.book import Book, BookCreate, BookSearch, BookUpdate
-from ..models.user import UserModel
 
 router = APIRouter(
     prefix="/books",

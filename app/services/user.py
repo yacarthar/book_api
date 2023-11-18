@@ -2,7 +2,7 @@ from typing import Optional
 from sqlalchemy.orm import Session
 
 from ..models.user import UserModel
-from ..schemas.user import User, UserCreate
+from ..schemas.user import UserCreate
 
 
 def create_user(db: Session, data: UserCreate) -> UserModel:
