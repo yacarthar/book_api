@@ -6,7 +6,7 @@ from ..schemas.user import User, UserCreate
 
 
 def create_user(db: Session, data: UserCreate) -> UserModel:
-    new_user = UserModel(**data.dict())
+    new_user = UserModel(**data.model_dump())
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
