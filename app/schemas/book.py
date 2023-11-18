@@ -1,18 +1,26 @@
 from datetime import date, datetime
-from typing import Union, List, Annotated
+from typing import Annotated, List, Union
 
-from pydantic import BaseModel, StringConstraints, PastDate, PositiveFloat, ConfigDict
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    PastDate,
+    PositiveFloat,
+    StringConstraints,
+)
 
 
 class BookCreate(BaseModel):
     title: Annotated[
-        str, StringConstraints(strip_whitespace=True, pattern=r"^[a-zA-Z0-9. ']+$")
+        str,
+        StringConstraints(strip_whitespace=True, pattern=r"^[a-zA-Z0-9. ']+$"),
     ]
     author: Annotated[
         str, StringConstraints(strip_whitespace=True, pattern=r"^[a-zA-Z. ']+$")
     ]
     isbn: Annotated[
-        str, StringConstraints(strip_whitespace=True, pattern=r"^[0-9\-]{10,20}$")
+        str,
+        StringConstraints(strip_whitespace=True, pattern=r"^[0-9\-]{10,20}$"),
     ]
     publish_date: Union[PastDate, None] = None
     price: Union[PositiveFloat, None] = None
@@ -39,13 +47,15 @@ class BookSearch(BaseModel):
 
 class BookUpdate(BaseModel):
     title: Annotated[
-        str, StringConstraints(strip_whitespace=True, pattern=r"^[a-zA-Z0-9. ']+$")
+        str,
+        StringConstraints(strip_whitespace=True, pattern=r"^[a-zA-Z0-9. ']+$"),
     ] = None
     author: Annotated[
-        str, StringConstraints(strip_whitespace=True, pattern=r"^[a-zA-Z. ']+$"), None
+        str, StringConstraints(strip_whitespace=True, pattern=r"^[a-zA-Z. ']+$")
     ] = None
     isbn: Annotated[
-        str, StringConstraints(strip_whitespace=True, pattern=r"^[0-9\-]{10,20}$"), None
+        str,
+        StringConstraints(strip_whitespace=True, pattern=r"^[0-9\-]{10,20}$"),
     ] = None
     publish_date: Union[PastDate, None] = None
     price: Union[PositiveFloat, None] = None

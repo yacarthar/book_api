@@ -1,21 +1,15 @@
-import json
-
 from app.schemas.user import User
-from .mock_results import (
-    book_data,
-    list_book_result,
-    user_data,
-    user_cred_reg,
-    user_cred_login,
-)
+
+from .mock_results import user_cred_login, user_cred_reg, user_data
 
 
 class TestRegister:
     def test_register_fail(self, mocker, client, api):
-        mocker.patch("app.routers.users.get_user_by_email", return_value=user_data)
+        mocker.patch(
+            "app.routers.users.get_user_by_email", return_value=user_data
+        )
         res = client.post(api + "/users", json=user_cred_reg)
         assert res.status_code == 400
-
 
     def test_register_success(self, mocker, client, api):
         mocker.patch("app.routers.users.get_user_by_email", return_value=None)
@@ -47,6 +41,8 @@ class TestLogin:
             "app.routers.users.authenticate_user",
             return_value=User.model_validate(user_data),
         )
-        mocker.patch("app.routers.users.create_access_token", return_value="test_token")
+        mocker.patch(
+            "app.routers.users.create_access_token", return_value="test_token"
+        )
         res = client.post(api + "/users/login", json=user_cred_login)
         assert res.status_code == 200

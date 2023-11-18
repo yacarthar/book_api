@@ -2,8 +2,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-from config import settings
 from app.libs.log import logger
+from config import settings
 
 logger.info(f"db_host: {settings.DB_HOST}")
 

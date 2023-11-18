@@ -70,7 +70,9 @@ def delete_book(db: Session, book_id: int) -> Union[BookModel, None]:
     return book
 
 
-def update_book(db: Session, book: BookModel, data: dict) -> Union[BookModel, None]:
+def update_book(
+    db: Session, book: BookModel, data: dict
+) -> Union[BookModel, None]:
     for key, value in data.items():
         setattr(book, key, value)
     db.add(book)

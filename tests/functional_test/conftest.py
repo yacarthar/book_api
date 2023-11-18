@@ -1,15 +1,12 @@
-import json
-
+import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, Session
+from sqlalchemy.orm import Session, sessionmaker
 
-import pytest
-
-from config import settings
-from app.main import app
-from app.libs import Base, UserModel, BookModel
+from app.libs import Base, BookModel, UserModel
 from app.libs.db import get_db
+from app.main import app
+from config import settings
 from tests.functional_test.utils import mock_data
 
 

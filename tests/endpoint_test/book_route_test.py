@@ -1,10 +1,8 @@
 import json
 
 from app.schemas.book import Book
-from .mock_results import (
-    book_data,
-    list_book_result,
-)
+
+from .mock_results import book_data, list_book_result
 
 
 class TestGetBook:
@@ -24,8 +22,12 @@ class TestGetBook:
 
 class TestListBooks:
     def test_params_success(self, client, mocker, api):
-        mocker.patch("app.routers.books.list_books", return_value=list_book_result)
-        mocker.patch("app.routers.books.build_url", return_value="http://test.url")
+        mocker.patch(
+            "app.routers.books.list_books", return_value=list_book_result
+        )
+        mocker.patch(
+            "app.routers.books.build_url", return_value="http://test.url"
+        )
         res = client.get(api + "/books/", params={"page": 2})
         assert res.status_code == 200
 
@@ -40,7 +42,9 @@ class TestCreateBook:
         assert Book.model_validate(res.json())
 
     def test_create_with_exception(self, mocker, client, api):
-        mocker.patch("app.routers.books.get_book_by_isbn", return_value=book_data)
+        mocker.patch(
+            "app.routers.books.get_book_by_isbn", return_value=book_data
+        )
         res = client.post(api + "/books/", json=book_data)
         assert res.status_code == 400
 
@@ -68,7 +72,9 @@ class TestUpdateBook:
 
     def test_update_fail(self, mocker, client, api):
         mocker.patch("app.routers.books.get_book", return_value=book_data)
-        mocker.patch("app.routers.books.update_book", side_effect=Exception("test"))
+        mocker.patch(
+            "app.routers.books.update_book", side_effect=Exception("test")
+        )
         res = client.put(api + "/books/10", json=book_data)
         assert res.status_code == 400
 

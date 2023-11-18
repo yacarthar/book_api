@@ -4,13 +4,14 @@ from jose import jwt
 from pydantic import ValidationError
 from sqlalchemy.orm import Session
 
-from config import settings
+from app.libs.log import logger
 from app.models.user import UserModel
 from app.schemas.token import TokenPayload
+from app.services.user import get_user
+from config import settings
+
 from .db import get_db
 from .security import ALGORITHM
-from app.services.user import get_user
-from app.libs.log import logger
 
 token_getter = OAuth2PasswordBearer(
     tokenUrl=f"/api/{settings.API_VERSION}/users/login"

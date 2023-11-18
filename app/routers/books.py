@@ -1,21 +1,21 @@
-from typing import Union, Annotated
+from typing import Annotated, Union
 
-from fastapi import APIRouter, HTTPException, Depends, Query, Request
+from fastapi import APIRouter, Depends, HTTPException, Query, Request
 from sqlalchemy.orm import Session
 
-from ..libs.db import get_db
 from ..libs.auth import get_current_user
-from ..libs.utils import build_url
+from ..libs.db import get_db
 from ..libs.log import logger
+from ..libs.utils import build_url
+from ..schemas.book import Book, BookCreate, BookSearch, BookUpdate
 from ..services.book import (
     create_book,
+    delete_book,
     get_book,
     get_book_by_isbn,
     list_books,
-    delete_book,
     update_book,
 )
-from ..schemas.book import Book, BookCreate, BookSearch, BookUpdate
 
 router = APIRouter(
     prefix="/books",
@@ -52,7 +52,8 @@ def list_books_(
     title: Union[str, None] = None,
     author: Union[str, None] = None,
     date: Annotated[
-        Union[str, None], Query(pattern=r"\b(?:before|after)?(\d{4}-\d{2}-\d{" r"2})\b")
+        Union[str, None],
+        Query(pattern=r"\b(?:before|after)?(\d{4}-\d{2}-\d{" r"2})\b"),
     ] = None,
 ):
     total, result, next_page, prev_page = list_books(
@@ -85,7 +86,9 @@ def delete_book_(
     return deleted_book
 
 
-@router.put("/{book_id}", response_model=Book, dependencies=[Depends(get_current_user)])
+@router.put(
+    "/{book_id}", response_model=Book, dependencies=[Depends(get_current_user)]
+)
 def update_book_(
     book_id: int,
     data: BookUpdate,

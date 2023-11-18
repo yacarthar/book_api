@@ -1,12 +1,10 @@
-import json
-
-from fastapi.testclient import TestClient
 import pytest
+from fastapi.testclient import TestClient
 
-from config import settings
-from app.main import app
 from app.libs.auth import get_current_user
 from app.libs.db import get_db
+from app.main import app
+from config import settings
 
 
 @pytest.fixture(scope="package")
