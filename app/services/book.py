@@ -44,15 +44,20 @@ def list_books(db: Session, page: int, limit: int, **kwargs):
                 query = query.filter(BookModel.publish_date == exact_date)
 
     total = query.count()
-    last_page = math.ceil(total / limit)
-    page = min(page, last_page)
+    if not total:
+        result = []
+        next_page = None
+        prev_page = None
+    else:
+        last_page = math.ceil(total / limit)
+        page = min(page, last_page)
 
-    offset = (page - 1) * limit
-    query = query.offset(offset).limit(limit)
-    result = query.all()
+        offset = (page - 1) * limit
+        query = query.offset(offset).limit(limit)
+        result = query.all()
 
-    next_page = page + 1 if page < last_page else None
-    prev_page = page - 1 if page > 1 else None
+        next_page = page + 1 if page < last_page else None
+        prev_page = page - 1 if page > 1 else None
 
     return total, result, next_page, prev_page
 
