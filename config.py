@@ -53,6 +53,10 @@ class Local(Base):
     model_config = ConfigDict(env_file=".local.env")
 
 
+class Test(Local):
+    model_config = ConfigDict(env_file=".test.env")
+
+
 class Prod(Base):
     APP_BASE_URL: str = Field(default_factory=decoded_route)
 
@@ -67,6 +71,7 @@ class Prod(Base):
 
 config = dict(
     local=Local,
+    test=Test,
     # development=Dev,
     # staging=Staging,
     production=Prod,
