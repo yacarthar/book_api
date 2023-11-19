@@ -1,0 +1,54 @@
+name: Test & Deploy
+run-name: ${{ github.actor }} is testing & deploy
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+          cache: "pip"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip \
+          pip install -r requirements.txt
+      - name: execute test scripts
+        run: export SQLALCHEMY_SILENCE_UBER_WARNING=1;
+          export PLATFORM_ENVIRONMENT_TYPE=test
+          export SECRET_KEY=${{secrets.SECRET_KEY}};
+          export APP_BASE_URL=http://localhost:8000;
+          export DB_USERNAME=${{secrets.DB_USERNAME}};
+          export DB_PASSWORD=${{secrets.DB_PASSWORD}};
+          export DB_HOST=${{secrets.DB_HOST}};
+          export DB_PORT=5432;
+          export DB_PATH=${{secrets.DB_PATH}};
+          pytest --cov=app --tb=short -vv -s -p no:loggin tests --cov-report term-missing --cov-report=html
+      - name: Upload test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: my-report
+          path: htmlcov/
+        if: ${{ always() }}
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Fetch full history
+        run: git fetch --unshallow
+      - name: Set up Platform.sh CLI
+        run: curl -fsSL https://raw.githubusercontent.com/platformsh/cli/main/installer.sh | bash
+      - name: Deploy to Platform.sh
+        run:
+          export PLATFORMSH_CLI_TOKEN=${{secrets.PLATFORMSH_CLI_TOKEN}};
+          platform project:set-remote ${{vars.PLATFORMSH_PROJECT_ID}};
+          platform ssh-cert:load -y;
+          ssh-keyscan -t rsa ssh.au.platform.sh >> ~/.ssh/known_hosts;
+          ssh-keyscan -t rsa git.au.platform.sh >> ~/.ssh/known_hosts;
+          platform push --target=master -y
