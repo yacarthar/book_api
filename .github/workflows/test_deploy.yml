@@ -51,4 +51,4 @@ jobs:
           platform ssh-cert:load -y;
           ssh-keyscan -t rsa ssh.au.platform.sh >> ~/.ssh/known_hosts;
           ssh-keyscan -t rsa git.au.platform.sh >> ~/.ssh/known_hosts;
-          platform push --target=master -y
+          platform push --target=main -y
