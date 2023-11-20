@@ -74,7 +74,44 @@ scripts\format.cmd
 ```
 ## API Reference
 
-#### Redoc document
+#### Get all books
+
+```http
+  GET /api/v1/books
+```
+
+| Parameter | Type     | Example            | Default |
+| :-------- | :------- | :------------------|:--------|
+| `title`   | `string` | adventure          |         |
+| `author`  | `string` | George             |         |
+| `date`    | `string` | before2018-11-04   |         |
+| `page`    | `int`    | 3                  |   1     |
+| `limit`   | `int`    | 5                  |   5     |
+
+- Filter Date before time
+    - use param: `date=beforeYYYY-MM-DD`
+    - http://localhost:8000/books/?title=en&date=before2022-11-09&page=10&limit=5
+- Filter Date after time
+    - use param: `date=afterYYYY-MM-DD`
+    - http://localhost:8000/books/?title=en&date=after2014-11-19&page=10&limit=5
+- Filter Date exact time
+    - use param: `date=YYYY-MM-DD`
+    - http://localhost:8000/books/?title=en&date=2017-10-04&page=10&limit=5
+
+#### Login
+
+```http
+  POST /api/v1/users
+```
+
+| JSON Body | Type     | Description |
+| :-------- | :------- | :-----------|
+| `email`   | `string` | **Required**|
+| `password`| `string` | **Required**|
+
+
+
+#### Full Redoc document
 
 - http://127.0.0.1:8000/api/v1/redoc
 - https://main-bvxea6i-is5cxz4lczpvk.au.platformsh.site/api/v1/redoc
