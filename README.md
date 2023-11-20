@@ -56,6 +56,13 @@ I recommend you look up `.env.example` for more detail.
 `DB_PATH`: your Postgresql database name
 
 ### Scripts
+
+For the first time running locally or every time update the database table, you have to migrate model changes into the database:
+- Alembic migration:
+```cmd
+alembic upgrade head
+```
+
 Choose your scripts based on your local machine's OS.
 For example, run scripts on Windows:
 - Start server local:
