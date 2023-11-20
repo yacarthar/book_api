@@ -1,7 +1,7 @@
 
 # Book API
 
-A Restful API for books management, using FastAPI frameworkd and Postgresql database.
+A Restful API for book management, using FastAPI framework and Postgresql database.
 
 **Live demo**:
 
@@ -20,7 +20,7 @@ Go to the project directory
   cd book_api
 ```
 
-Create virtual environment. This step may vary on your machine and your python environment tools. For example, using virtualenv on Windows:
+Create a virtual environment. This step may vary on your machine and your Python environment tools. For example, using virtualenv on Windows:
 ```bash
   virtualenv env
   env\Scripts\activate
@@ -32,12 +32,12 @@ Install dependencies
 ```
 
 ### Requisite
-- A Postgresql database up and running for local environment.
+- A Postgresql database up and running for the local environment.
 - Another Postgresql database for functional tests.
 
 ### Environment Variables
 
-To run/test this project Locally, you will need to add the following environment variables to your `local.env` file or `.test.env` (when you run tests).
+To run/test this project Locally, you must add the following environment variables to your `local.env` file or `.test.env` (when you run tests).
 
 I recommend you look up `.env.example` for more detail.
 
@@ -56,14 +56,14 @@ I recommend you look up `.env.example` for more detail.
 `DB_PATH`: your Postgresql database name
 
 ### Scripts
-Choose your scripts base on your local machine's OS.
+Choose your scripts based on your local machine's OS.
 For example, run scripts on Windows:
 - Start server local:
 ```cmd
 scripts\start_local.cmd
 ```
 
-- Run test scripts:
+- Test scripts:
 ```cmd
 scripts\test_run.cmd
 ```
@@ -76,7 +76,7 @@ scripts\format.cmd
 
 #### Get all books
 
-```http
+```HTTP
   GET /api/v1/books
 ```
 
@@ -100,7 +100,7 @@ scripts\format.cmd
 
 #### Login
 
-```http
+```HTTP
   POST /api/v1/users
 ```
 
@@ -156,7 +156,7 @@ scripts\format.cmd
 
 **Hosting:** Platform.sh
 
-**CI/CD:** Github Actions
+**CI/CD:** GitHub Actions
 
 ## Feedback
 
