@@ -1,0 +1,13 @@
+env/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.github/
+.platform/
+tests/
+docs/
+.git/
+.gitignore
+*.pyc
+*.pyo
+*.pyd
