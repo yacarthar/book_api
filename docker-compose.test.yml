@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: book_api_test
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  app:
+    build: .
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      SQLALCHEMY_SILENCE_UBER_WARNING: "1"
+      PLATFORM_ENVIRONMENT_TYPE: test
+      SECRET_KEY: test-secret
+      APP_BASE_URL: http://localhost:8000
+
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_PATH: book_api_test
+
+    command: >
+      pytest
+      --cov=app
+      --tb=short
+      -vv
+      -p no:logging
+      tests
+      --cov-report=term-missing
+      --cov-report=html
