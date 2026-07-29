@@ -2,6 +2,7 @@ import base64
 import json
 import os
 from typing import Union
+from urllib.parse import quote_plus
 
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -36,8 +37,9 @@ class Base(BaseSettings):
 
     @property
     def db_uri(self):
+        password = quote_plus(self.DB_PASSWORD)
         return (
-            f"{self.DB_SCHEME}://{self.DB_USERNAME}:{self.DB_PASSWORD}"
+            f"{self.DB_SCHEME}://{self.DB_USERNAME}:{password}"
             + f"@{self.DB_HOST}:{str(self.DB_PORT)}/{self.DB_PATH}"
         )
 
