@@ -1,6 +1,8 @@
 name: Test & Deploy
 run-name: ${{ github.actor }} is testing & deploy
-on: [push]
+on:
+  push:
+  branches: [main]
 
 jobs:
   ci:
@@ -72,6 +74,9 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
             cd "$HOME/book-api"
+            git fetch origin main
+            git checkout origin/main -- docker-compose.yml
+            git checkout origin/main -- nginx/
 
             echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io \
               -u "${{ github.actor }}" \
@@ -80,3 +85,4 @@ jobs:
             docker compose pull
             docker compose up -d
             docker image prune -f
+
