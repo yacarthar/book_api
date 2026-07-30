@@ -5,35 +5,27 @@ A Restful API for book management, using FastAPI framework and Postgresql databa
 
 **Live demo**:
 
-https://main-bvxea6i-is5cxz4lczpvk.au.platformsh.site/api/v1/books/?page=1&limit=5
+https://jimmypham.xyz/api/v1/books/?page=1&limit=5
 
 
 ## Run Locally
 
-Clone the project
-
+1. Clone the project
 ```bash
-  git clone https://github.com/yacarthar/book_api.git
-```
-Go to the project directory
-```bash
-  cd book_api
+git clone https://github.com/yacarthar/book_api.git
+cd book_api
 ```
 
-Create a virtual environment. This step may vary on your machine and your Python environment tools. For example, using virtualenv on Windows:
+2. Create a .local.env file, based on .env.example
+
+3.
 ```bash
-  virtualenv env
-  env\Scripts\activate
+docker compose -f docker-compose.local.yml up
 ```
 
-Install dependencies
-```bash
-  pip install -r requirements.txt
-```
 
 ### Requisite
 - A Postgresql database up and running for the local environment.
-- Another Postgresql database for functional tests.
 
 ### Environment Variables
 
