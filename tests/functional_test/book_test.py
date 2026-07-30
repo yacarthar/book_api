@@ -1,6 +1,6 @@
 import json
 
-from httpx import Response
+from httpx2 import Response
 
 from app.schemas.book import Book, BookSearch
 
