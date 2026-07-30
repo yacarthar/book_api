@@ -1,0 +1,38 @@
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: book_api_test
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      retries: 10
+
+  app:
+    image: book-api:test
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+    environment:
+      PLATFORM_ENVIRONMENT_TYPE: test
+      SECRET_KEY: test-secret
+      APP_BASE_URL: http://localhost:8000
+
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_PATH: book_api_test
+
+    command: >
+      pytest
+      --cov=app
+      --tb=short
+      -vv
+      tests
+      --cov-report=term-missing
+      --cov-report=html

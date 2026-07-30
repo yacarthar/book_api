@@ -5,35 +5,27 @@ A Restful API for book management, using FastAPI framework and Postgresql databa
 
 **Live demo**:
 
-https://main-bvxea6i-is5cxz4lczpvk.au.platformsh.site/api/v1/books/?page=1&limit=5
-
+https://jimmypham.xyz/api/v1/redoc
+https://jimmypham.xyz/api/v1/books/?page=1&limit=5
 
 ## Run Locally
 
-Clone the project
-
+1. Clone the project
 ```bash
-  git clone https://github.com/yacarthar/book_api.git
-```
-Go to the project directory
-```bash
-  cd book_api
+git clone https://github.com/yacarthar/book_api.git
+cd book_api
 ```
 
-Create a virtual environment. This step may vary on your machine and your Python environment tools. For example, using virtualenv on Windows:
+2. Create a .local.env file, based on .env.example
+
+3.
 ```bash
-  virtualenv env
-  env\Scripts\activate
+docker compose -f docker-compose.local.yml up
 ```
 
-Install dependencies
-```bash
-  pip install -r requirements.txt
-```
 
 ### Requisite
 - A Postgresql database up and running for the local environment.
-- Another Postgresql database for functional tests.
 
 ### Environment Variables
 
@@ -67,17 +59,17 @@ Choose your scripts based on your local machine's OS.
 For example, run scripts on Windows:
 - Start server local:
 ```cmd
-scripts\start_local.cmd
+scripts\start_local.sh
 ```
 
 - Test scripts:
 ```cmd
-scripts\test_run.cmd
+scripts\run_tests.sh
 ```
 
 - Format source code:
 ```cmd
-scripts\format.cmd
+scripts\format.sh
 ```
 ## API Reference
 
@@ -120,13 +112,13 @@ scripts\format.cmd
 
 #### Full Redoc document
 
-- http://127.0.0.1:8000/api/v1/redoc
-- https://main-bvxea6i-is5cxz4lczpvk.au.platformsh.site/api/v1/redoc
+- http://jimmypham.xyz/api/v1/redoc
+- https:/localhost:8000/api/v1/redoc
 
 #### OpenAPI JSON
 
-- http://127.0.0.1:8000/api/v1/openapi.json
-- https://main-bvxea6i-is5cxz4lczpvk.au.platformsh.site/api/v1/openapi.json
+- http://jimmypham/.xyz/api/v1/openapi.json
+- https://localhost:8000/api/v1/openapi.json
 ## Features
 
 - CRUD book items:
@@ -155,13 +147,14 @@ scripts\format.cmd
     - Components Diagrams
 - OpenAPI JSON file
     - Postman collections compatibility
+
 ## Tech Stack
 
 **Framwork:** Python, FastAPI
 
-**Database:** Postgresql
+**Database:** Postgresql on Supabase
 
-**Hosting:** Platform.sh
+**Hosting:** VPS Ubuntu 24.04
 
 **CI/CD:** GitHub Actions
 
