@@ -5,8 +5,8 @@ A Restful API for book management, using FastAPI framework and Postgresql databa
 
 **Live demo**:
 
-https://jimmypham.xyz/api/v1/books/?page=1&limit=5
-
+https://jimmypham.xyz:8000/api/v1/redoc
+https://jimmypham.xyz:8000/api/v1/books/?page=1&limit=5
 
 ## Run Locally
 
@@ -59,17 +59,17 @@ Choose your scripts based on your local machine's OS.
 For example, run scripts on Windows:
 - Start server local:
 ```cmd
-scripts\start_local.cmd
+scripts\start_local.sh
 ```
 
 - Test scripts:
 ```cmd
-scripts\test_run.cmd
+scripts\run_tests.sh
 ```
 
 - Format source code:
 ```cmd
-scripts\format.cmd
+scripts\format.sh
 ```
 ## API Reference
 
@@ -112,13 +112,13 @@ scripts\format.cmd
 
 #### Full Redoc document
 
-- http://127.0.0.1:8000/api/v1/redoc
-- https://main-bvxea6i-is5cxz4lczpvk.au.platformsh.site/api/v1/redoc
+- http://jimmypham.xyz:8000/api/v1/redoc
+- https:/localhost:8000/api/v1/redoc
 
 #### OpenAPI JSON
 
-- http://127.0.0.1:8000/api/v1/openapi.json
-- https://main-bvxea6i-is5cxz4lczpvk.au.platformsh.site/api/v1/openapi.json
+- http://jimmypham/.xyz:8000/api/v1/openapi.json
+- https://localhost:8000/api/v1/openapi.json
 ## Features
 
 - CRUD book items:
