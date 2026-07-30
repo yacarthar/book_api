@@ -11,9 +11,7 @@ services:
       retries: 10
 
   app:
-    build:
-      context: .
-      target: test
+    image: book-api:test
 
     depends_on:
       postgres:
