@@ -147,13 +147,14 @@ scripts\format.cmd
     - Components Diagrams
 - OpenAPI JSON file
     - Postman collections compatibility
+
 ## Tech Stack
 
 **Framwork:** Python, FastAPI
 
-**Database:** Postgresql
+**Database:** Postgresql on Supabase
 
-**Hosting:** Platform.sh
+**Hosting:** VPS Ubuntu 24.04
 
 **CI/CD:** GitHub Actions
 
