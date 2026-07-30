@@ -2,7 +2,8 @@ name: Test & Deploy
 run-name: ${{ github.actor }} is testing & deploy
 on:
   push:
-  branches: [main]
+    branches:
+      - main
 
 jobs:
   ci:
