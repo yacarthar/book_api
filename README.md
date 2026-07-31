@@ -1,5 +1,6 @@
 
 # Book API
+[![Test & Deploy](https://github.com/yacarthar/book_api/actions/workflows/test_deploy.yml/badge.svg?branch=main&event=push)](https://github.com/yacarthar/book_api/actions/workflows/test_deploy.yml)
 
 A Restful API for book management, using FastAPI framework and Postgresql database.
 
